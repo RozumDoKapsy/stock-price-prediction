@@ -1,7 +1,8 @@
 import sys
+import os
 from pathlib import Path
 
-project_path = Path(__file__).resolve().parent.parent
+project_path = Path(os.path.dirname(os.path.abspath(__file__))).parent
 sys.path.append(str(project_path))
 
 import streamlit as st
@@ -14,7 +15,6 @@ st.title('Stock Price Prediction')
 def load_data():
     data = load_indices_data()
     return data
-
 
 
 index_data = load_data()
