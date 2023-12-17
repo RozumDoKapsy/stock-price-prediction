@@ -1,5 +1,3 @@
-from src.constants import PATH_TO_RAW_DATA
-
 from data_utils import download_yahoo_data, save_yahoo_data, load_indices_list
 import datetime
 
@@ -7,7 +5,7 @@ import pandas as pd
 
 
 def get_data():
-    indices_list = load_indices_list(PATH_TO_RAW_DATA)
+    indices_list = load_indices_list()
 
     start = datetime.date(2010, 1, 1)
     end = datetime.datetime.today()
@@ -24,7 +22,7 @@ def get_data():
 
     indices_data = indices_data[cols]
 
-    save_yahoo_data(indices_data, PATH_TO_RAW_DATA)
+    save_yahoo_data(indices_data)
     print('Data successfully donwloaded.')
 
 
