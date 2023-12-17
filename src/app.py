@@ -1,8 +1,8 @@
-# import sys
-# from pathlib import Path
-#
-# project_path = Path(__file__).resolve().parent.parent
-# sys.path.append(str(project_path))
+import sys
+from pathlib import Path
+
+project_path = Path(__file__).resolve().parent.parent
+sys.path.append(str(project_path))
 
 import streamlit as st
 from src.data_preprocessing.data_utils import load_indices_data, load_indices_list
