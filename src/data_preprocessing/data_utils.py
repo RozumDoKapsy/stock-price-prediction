@@ -7,7 +7,7 @@ import os
 import pickle
 import json
 
-from src.constants import PATH_TO_RAW_DATA
+from src.config import PATH_TO_DATA
 
 
 def download_yahoo_data(index_id: str, start: datetime.date, end: datetime.date) -> pd.DataFrame:
@@ -30,7 +30,7 @@ def save_yahoo_data(index_data: pd.DataFrame):
 
     :param index_data: DataFrame with index data
     """
-    path = PATH_TO_RAW_DATA
+    path = PATH_TO_DATA
     file_name = 'index_data.pickle'
     with open(os.path.join(path, file_name), 'wb') as pkl:
         pickle.dump(index_data, pkl)
@@ -42,7 +42,7 @@ def load_indices_list() -> dict[str, str]:
 
     :return: dict where Index ID is key and Index Name is value
     """
-    path = PATH_TO_RAW_DATA
+    path = PATH_TO_DATA
     file_name = 'indices_list.json'
     with open(os.path.join(path, file_name), 'rb') as f:
         indices_list = json.load(f)
@@ -50,7 +50,7 @@ def load_indices_list() -> dict[str, str]:
 
 
 def load_indices_data():
-    path = PATH_TO_RAW_DATA
+    path = PATH_TO_DATA
     file_name = 'index_data.pickle'
     with open(os.path.join(path, file_name), 'rb') as pkl:
         index_data = pickle.load(pkl)
