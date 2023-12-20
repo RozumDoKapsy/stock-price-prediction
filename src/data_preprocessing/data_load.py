@@ -16,9 +16,9 @@ def get_data():
         data['index'] = index
         df_list.append(data)
 
-    indices_data = pd.concat(df_list, ignore_index=True).reset_index(drop=True)
+    indices_data = pd.concat(df_list).reset_index()
     cols = indices_data.columns.tolist()
-    cols = [cols[-1]] + cols[:-1]
+    cols = [cols[0]] + [cols[-1]] + cols[1:-1]
 
     indices_data = indices_data[cols]
 
