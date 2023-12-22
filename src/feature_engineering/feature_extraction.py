@@ -4,7 +4,7 @@ from src.data_preprocessing.data_utils import load_index_data
 from src.feature_engineering.feature_utils import save_features
 
 
-def feature_prep():
+def feature_extraction():
     data = load_index_data()
     features = data[['Date', 'Index', 'Close']]
 
@@ -13,5 +13,4 @@ def feature_prep():
 
 
 if __name__ == '__main__':
-    feature_prep()
-    
+    feature_extraction()
