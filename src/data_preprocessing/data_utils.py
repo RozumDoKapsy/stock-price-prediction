@@ -31,27 +31,27 @@ def save_yahoo_data(index_data: pd.DataFrame):
     :param index_data: DataFrame with index data
     """
     path = PATH_TO_DATA
-    file_name = 'index_data.pickle'
+    file_name = 'index_stock_data.pickle'
     with open(os.path.join(path, file_name), 'wb') as pkl:
         pickle.dump(index_data, pkl)
 
 
-def load_indices_list() -> dict[str, str]:
+def load_index_list() -> dict[str, str]:
     """
     Loads ID and Name for specific indices from JSON file.
 
     :return: dict where Index ID is key and Index Name is value
     """
     path = PATH_TO_DATA
-    file_name = 'indices_list.json'
+    file_name = 'stock_market_index_list.json'
     with open(os.path.join(path, file_name), 'rb') as f:
         indices_list = json.load(f)
     return indices_list
 
 
-def load_indices_data():
+def load_index_data():
     path = PATH_TO_DATA
-    file_name = 'index_data.pickle'
+    file_name = 'index_stock_data.pickle'
     with open(os.path.join(path, file_name), 'rb') as pkl:
         index_data = pickle.load(pkl)
     return index_data
