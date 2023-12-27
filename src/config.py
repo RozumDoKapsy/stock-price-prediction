@@ -11,3 +11,4 @@ PATH_TO_MODELS = os.path.join(ROOT_DIR, 'bucket/models')
 TEST_SIZE_PCT = 0.05
 LAG = 60
 N_FORECAST = 10
+FEATURE_NAME = 'Close'

@@ -2,11 +2,12 @@
 
 from src.data_preprocessing.data_utils import load_index_data
 from src.feature_engineering.feature_utils import save_features
+from src.config import FEATURE_NAME
 
 
 def feature_extraction():
     data = load_index_data()
-    features = data[['Date', 'Index', 'Close']]
+    features = data[['Date', 'Index', FEATURE_NAME]]
 
     feature_file_name = 'index_stock_features'
     save_features(features, feature_file_name)
