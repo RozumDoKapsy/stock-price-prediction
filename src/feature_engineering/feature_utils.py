@@ -56,11 +56,11 @@ def feature_scaling(train_data: np.ndarray, type: ScalerType) -> StandardScaler(
     return scaler
 
 
-def extract_targets(feature, lag: int) -> (np.ndarray, np.ndarray):
+def extract_targets(feature, lag: int, n_forecast: int) -> (np.ndarray, np.ndarray):
     X, y = [], []
-    for i in range(len(feature) - lag):
+    for i in range(len(feature) - lag - n_forecast + 1):
         X.append(feature[i:(i + lag)])
-        y.append(feature[i + lag])
+        y.append(feature[(i + lag):(i + lag + n_forecast)])
 
     X, y = np.array(X), np.array(y)
     X = X.reshape(X.shape[0], X.shape[1], 1)
