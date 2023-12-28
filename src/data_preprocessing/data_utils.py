@@ -1,9 +1,15 @@
+import sys
+import os
+from pathlib import Path
+
+project_path = Path(os.path.dirname(os.path.abspath(__file__))).parent.parent
+sys.path.append(str(project_path))
+
 import yfinance as yf
 from pandas_datareader import data as pdr
 import datetime
 import pandas as pd
 
-import os
 import pickle
 import json
 
