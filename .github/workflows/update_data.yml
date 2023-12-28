@@ -22,7 +22,7 @@ jobs:
         pip install pandas
 
     - name: run-update-data
-      run: python src\data_preprocessing\data_load.py
+      run: python src/data_preprocessing/data_load.py
 
     - name: commit-push
       run: |
