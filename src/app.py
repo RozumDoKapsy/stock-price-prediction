@@ -9,7 +9,7 @@ sys.path.append(str(project_path))
 
 import streamlit as st
 from src.data_preprocessing.data_utils import download_yahoo_data, load_index_data, load_index_list
-from src.general_utils import get_predictions
+from src.predictions import get_predictions, load_predictions
 from src.config import LAG
 
 import datetime
@@ -45,9 +45,9 @@ start_date = end_date - datetime.timedelta(days=100)
 data = download_yahoo_data(index, start_date, end_date)
 data = data[-LAG:]
 
-predictions = get_predictions(index)
+predictions = create_predictions(index)
 
-predictions_df = pd.DataFrame.from_dict(predictions)
+predictions_df = load_predictions()
 predictions_df.index = predictions_df['date']
 
 data_plt = pd.concat([data, predictions_df])

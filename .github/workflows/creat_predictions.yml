@@ -1,9 +1,9 @@
-name: update-data
+name: create-predictions
 
 #on: [push]
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 1 * * *'
 
 jobs:
   update-data:
@@ -20,15 +20,15 @@ jobs:
     - name: install-dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas yfinance pandas-datareader setuptools
+        pip install -r requirements.txt
 
-    - name: run-update-data
-      run: python src/data_preprocessing/data_load.py
+    - name: run-create-predictions
+      run: python src/predictions.py
 
     - name: commit-push
       run: |
         git config --local user.email "actions@github.com"
         git config --local user.name "GitHub Actions"
         git add .
-        git commit -m "chore: auto-update data"
+        git commit -m "chore: auto-update predictions"
         git push
