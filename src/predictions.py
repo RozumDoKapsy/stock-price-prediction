@@ -7,7 +7,7 @@ sys.path.append(str(project_path))
 
 
 from src.data_preprocessing.data_utils import load_index_data
-from src.models.model_utils import load_model, make_prediction
+from src.models.model_utils import load_lstm_model, load_scaler_model, make_prediction
 from src.config import LAG, N_FORECAST, FEATURE_NAME, PATH_TO_DATA
 
 import datetime
@@ -15,8 +15,8 @@ import pandas as pd
 
 
 def get_predictions(index_code: str) -> list[dict]:
-    model = load_model('LSTM_model')
-    scaler = load_model('standard_scaler')
+    model = load_lstm_model('LSTM_model')
+    scaler = load_scaler_model('standard_scaler')
 
     data = load_index_data()
     data = data[data['Index'] == index_code]

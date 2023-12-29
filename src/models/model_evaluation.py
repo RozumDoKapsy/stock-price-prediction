@@ -1,14 +1,14 @@
-from src.models.model_utils import load_model, evaluate_model
+from src.models.model_utils import load_lstm_model, load_scaler_model, evaluate_model
 from src.feature_engineering.feature_preprocess import get_features
 from src.config import N_FORECAST
 
 
 def model_evaluation(n_forecast):
     model_name = 'LSTM_model'
-    model = load_model(model_name)
+    model = load_lstm_model(model_name)
 
     scaler_name = 'Standard_scaler'
-    scaler = load_model(scaler_name)
+    scaler = load_scaler_model(scaler_name)
 
     X_train, y_train, X_test, y_test = get_features(n_forecast)
 

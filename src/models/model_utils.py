@@ -1,4 +1,4 @@
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.layers import Dense, LSTM
 
 from src.config import PATH_TO_MODELS
@@ -24,16 +24,21 @@ def train_model(X_train: np.ndarray, y_train: np.ndarray, n_forecast: int) -> Se
 
 
 def save_model(model: Sequential(), file_name: str):
-    file_name = f'{file_name}.pickle'
-    with open(os.path.join(PATH_TO_MODELS, file_name), 'wb') as pkl:
-        pickle.dump(model, pkl)
+    file_name = f'{file_name}.h5'
+    model.save(os.path.join(PATH_TO_MODELS, file_name))
 
 
-def load_model(file_name) -> Sequential():
+def load_lstm_model(file_name) -> Sequential():
+    file_name = f'{file_name}.h5'
+    model = load_model(os.path.join(PATH_TO_MODELS, file_name))
+    return model
+
+
+def load_scaler_model(file_name) -> Union[StandardScaler(), MinMaxScaler()]:
     file_name = f'{file_name}.pickle'
     with open(os.path.join(PATH_TO_MODELS, file_name), 'rb') as pkl:
-        model = pickle.load(pkl)
-    return model
+        scaler = pickle.load(pkl)
+    return scaler
 
 
 def evaluate_model(X_test: np.ndarray, y_test: np.ndarray, model: Sequential()

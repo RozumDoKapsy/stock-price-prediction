@@ -10,6 +10,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import math
 
 from enum import Enum
+from typing import Union
 
 
 class ScalerType(Enum):
@@ -40,7 +41,7 @@ def feature_train_test_split(feature: np.ndarray, test_size_pct: float) -> (np.n
     return train_data, test_data
 
 
-def feature_scaling(train_data: np.ndarray, type: ScalerType) -> StandardScaler():
+def feature_scaling(train_data: np.ndarray, type: ScalerType) -> Union[StandardScaler(), MinMaxScaler()]:
     if type == ScalerType.standard:
         scaler = StandardScaler()
         scaler = scaler.fit(train_data)
