@@ -48,6 +48,7 @@ data = data[-LAG:]
 predictions = create_predictions(index)
 
 predictions_df = load_predictions()
+predictions_df = predictions_df[predictions_df['date_of_prediction'] == end_date.strftime('%Y-%m-%d')]
 predictions_df.index = predictions_df['date']
 
 data_plt = pd.concat([data, predictions_df])

@@ -1,9 +1,9 @@
 name: create-predictions
 
-on: [push]
-#on:
-#  schedule:
-#    - cron: '0 1 * * *'
+#on: [push]
+on:
+  schedule:
+    - cron: '0 1 * * *'
 
 jobs:
   create-predictions:
