@@ -45,6 +45,7 @@ start_date = end_date - datetime.timedelta(days=100)
 data = load_index_data()
 data = data[data['Index'] == index]
 data = data[-LAG:]
+data.index = data['Date']
 
 predictions_df = load_predictions()
 predictions_df = predictions_df[predictions_df['date_of_prediction'] == end_date.strftime('%Y-%m-%d')]
