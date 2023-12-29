@@ -55,6 +55,7 @@ data_plt = pd.concat([data, predictions_df])
 data_plt = data_plt[['Close', 'prediction']].reset_index()
 data_plt.columns = ['Date', 'Actual', 'Prediction']
 
+st.subheader(f'Stock evolution and prediction for {index_name}')
 fig = px.line(data_plt, x='Date', y=['Actual', 'Prediction']
               , labels={'value': 'Closing Price (USD)'
                         , 'Actual': 'Last 60 days'
