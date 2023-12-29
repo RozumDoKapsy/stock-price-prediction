@@ -23,7 +23,7 @@ def train_model(X_train: np.ndarray, y_train: np.ndarray, n_forecast: int) -> Se
     return model
 
 
-def save_model(model: Sequential(), file_name: str):
+def save_lstm_model(model: Sequential(), file_name: str):
     file_name = f'{file_name}.h5'
     model.save(os.path.join(PATH_TO_MODELS, file_name))
 
@@ -34,7 +34,7 @@ def load_lstm_model(file_name) -> Sequential():
     return model
 
 
-def load_scaler_model(file_name) -> Union[StandardScaler(), MinMaxScaler()]:
+def load_scaler_model(file_name) -> Union[StandardScaler, MinMaxScaler]:
     file_name = f'{file_name}.pickle'
     with open(os.path.join(PATH_TO_MODELS, file_name), 'rb') as pkl:
         scaler = pickle.load(pkl)

@@ -1,5 +1,5 @@
 from src.feature_engineering.feature_preprocess import get_features
-from src.models.model_utils import train_model, save_model
+from src.models.model_utils import train_model, save_lstm_model
 from src.config import N_FORECAST
 
 
@@ -10,7 +10,7 @@ def model_training(n_forecast):
     print('Model successfully trained.')
 
     model_name = 'LSTM_model'
-    save_model(model, model_name)
+    save_lstm_model(model, model_name)
     print('Model successfully saved.')
 
 
