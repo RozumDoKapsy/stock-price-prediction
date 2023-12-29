@@ -59,7 +59,8 @@ st.subheader(f'Stock evolution and prediction for {index_name}')
 fig = px.line(data_plt, x='Date', y=['Actual', 'Prediction']
               , labels={'value': 'Closing Price (USD)'
                         , 'Actual': 'Last 60 days'
-                        , 'Predictions': '10-day Prediction'})
+                        , 'Predictions': '10-day Prediction'}
+              , color_discrete_sequence=['blue', 'orange'])
 
 
 var_names = ['Last 60 days', '10-day Prediction']
