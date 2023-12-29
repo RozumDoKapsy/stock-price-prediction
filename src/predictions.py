@@ -5,7 +5,6 @@ from pathlib import Path
 project_path = Path(os.path.dirname(os.path.abspath(__file__))).parent
 sys.path.append(str(project_path))
 
-
 from src.data_preprocessing.data_utils import load_index_data
 from src.models.model_utils import load_lstm_model, load_scaler_model, make_prediction
 from src.config import LAG, N_FORECAST, FEATURE_NAME, PATH_TO_DATA

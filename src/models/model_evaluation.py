@@ -13,7 +13,6 @@ def model_evaluation(n_forecast):
     X_train, y_train, X_test, y_test = get_features(n_forecast)
 
     rmse = evaluate_model(X_test, y_test, model, scaler)
-    print(rmse)
     return rmse
 
 

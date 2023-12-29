@@ -41,7 +41,7 @@ def feature_train_test_split(feature: np.ndarray, test_size_pct: float) -> (np.n
     return train_data, test_data
 
 
-def feature_scaling(train_data: np.ndarray, type: ScalerType) -> Union[StandardScaler(), MinMaxScaler()]:
+def feature_scaling(train_data: np.ndarray, type: ScalerType) -> Union[StandardScaler, MinMaxScaler]:
     if type == ScalerType.standard:
         scaler = StandardScaler()
         scaler = scaler.fit(train_data)

@@ -42,10 +42,9 @@ index_name = indices_dict[index]
 
 end_date = datetime.datetime.today()
 start_date = end_date - datetime.timedelta(days=100)
-data = download_yahoo_data(index, start_date, end_date)
+data = load_index_data()
+data = data[data['Index'] == index]
 data = data[-LAG:]
-
-predictions = create_predictions(index)
 
 predictions_df = load_predictions()
 predictions_df = predictions_df[predictions_df['date_of_prediction'] == end_date.strftime('%Y-%m-%d')]
