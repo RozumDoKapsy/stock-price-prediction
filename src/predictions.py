@@ -1,11 +1,17 @@
+import sys
+import os
+from pathlib import Path
+
+project_path = Path(os.path.dirname(os.path.abspath(__file__))).parent
+sys.path.append(str(project_path))
+
+
 from src.data_preprocessing.data_utils import load_index_data
 from src.models.model_utils import load_model, make_prediction
 from src.config import LAG, N_FORECAST, FEATURE_NAME, PATH_TO_DATA
 
 import datetime
 import pandas as pd
-
-import os
 
 
 def get_predictions(index_code: str) -> list[dict]:
