@@ -19,7 +19,7 @@ import plotly.express as px
 
 
 st.title('Stock Price Prediction')
-
+tab1, tab2 = st.tabs(['Stock Prediction', 'Prediction Performance Evaluation'])
 
 @st.cache_data(show_spinner=False)
 def load_data():
@@ -70,36 +70,38 @@ data_plt = pd.concat([data, predictions_df])
 data_plt = data_plt[['Close', 'prediction']].reset_index()
 data_plt.columns = ['Date', 'Actual', 'Prediction']
 
-st.subheader(f'Stock evolution and prediction for {index_name}')
-fig = px.line(data_plt, x='Date', y=['Actual', 'Prediction']
-              , labels={'value': 'Closing Price (USD)'
-                        , 'Actual': 'Last 60 days'
-                        , 'Predictions': '10-day Prediction'}
-              , color_discrete_sequence=['blue', 'orange'])
+with tab1:
+    st.subheader(f'Stock evolution and prediction for {index_name}')
+    fig = px.line(data_plt, x='Date', y=['Actual', 'Prediction']
+                  , labels={'value': 'Closing Price (USD)'
+                            , 'Actual': 'Last 60 days'
+                            , 'Predictions': '10-day Prediction'}
+                  , color_discrete_sequence=['blue', 'orange'])
 
 
-var_names = ['Last 60 days', '10-day Prediction']
+    var_names = ['Last 60 days', '10-day Prediction']
 
-for i, name in enumerate(var_names):
-    fig.data[i].name = name
+    for i, name in enumerate(var_names):
+        fig.data[i].name = name
 
-st.plotly_chart(fig)
+    st.plotly_chart(fig)
 
-metrics_df = create_metrics(index)
+with tab2:
+    metrics_df = create_metrics(index)
 
-selectbox_day_eval = st.sidebar.selectbox('Choose day for performance metrics:', metrics_df['day_order'].unique())
-select_metrics = metrics_df[metrics_df['day_order'] == selectbox_day_eval]
+    selectbox_day_eval = st.sidebar.selectbox('Choose day for performance metrics:', metrics_df['day_order'].unique())
+    select_metrics = metrics_df[metrics_df['day_order'] == selectbox_day_eval]
 
-st.subheader(f'Prediction performance metrics for day {selectbox_day_eval}')
-for col, metric in zip(st.columns(3), select_metrics.columns[1:]):
-    col.metric(metric.upper(), select_metrics[metric].values)
+    st.subheader(f'Prediction performance metrics for day {selectbox_day_eval}')
+    for col, metric in zip(st.columns(3), select_metrics.columns[1:]):
+        col.metric(metric.upper(), select_metrics[metric].values)
 
-st.subheader('Complex View on RMSE and MAE Metrics')
-fig = px.line(metrics_df, x='day_order', y=['rmse', 'mae']
-              , labels={'value': 'Closing Price (USD)'
-                        , 'rmse': 'RMSE'
-                        , 'mae': 'MAE'
-                        , 'day_order': 'Day in Prediction Sequence'})
-st.plotly_chart(fig)
+    st.subheader('Complex View on RMSE and MAE Metrics')
+    fig = px.line(metrics_df, x='day_order', y=['rmse', 'mae']
+                  , labels={'value': 'Closing Price (USD)'
+                            , 'rmse': 'RMSE'
+                            , 'mae': 'MAE'
+                            , 'day_order': 'Day in Prediction Sequence'})
+    st.plotly_chart(fig)
 
 
