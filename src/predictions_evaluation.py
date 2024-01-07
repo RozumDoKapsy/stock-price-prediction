@@ -18,17 +18,23 @@ def evaluation(index: str, day: int):
     merged_data = merged_data[['prediction', 'Close']]
     merged_data = merged_data.dropna()
 
-    rmse = mean_squared_error(merged_data['Close'], merged_data['prediction'], squared=False)
-    mae = mean_absolute_error(merged_data['Close'], merged_data['prediction'])
-    mape = mean_absolute_percentage_error(merged_data['Close'], merged_data['prediction'])
+    if not merged_data.empty:
+        rmse = round(mean_squared_error(merged_data['Close'], merged_data['prediction'], squared=False), 1)
+        mae = round(mean_absolute_error(merged_data['Close'], merged_data['prediction']), 1)
+        mape = round(mean_absolute_percentage_error(merged_data['Close'], merged_data['prediction']) * 100, 1)
 
-    return mse, rmse, mae, mape
+        metrics_dict = {
+            'day_order': day,
+            'metrics_df': {
+                    'rmse': rmse,
+                    'mae': mae,
+                    'mape': mape
+                }
+        }
+        return metrics_dict
 
 
-for i in range(10):
-    mse, rmse, mae, mape = evaluation('^GSPC', i+1)
-    print(f'Prediction metrics for day {i+1}')
-    print(f'RMSE: {rmse}')
-    print(f'MAE: {mae}')
-    print(f'MAPE: {round(mape*100,1)}')
-
+if __name__ == '__main__':
+    for i in range(10):
+        metrics = evaluation('^GSPC', i+1)
+        print(metrics)

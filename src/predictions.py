@@ -23,7 +23,6 @@ def get_predictions(index_code: str) -> list[dict]:
 
     predictions = make_prediction(features, model, scaler).flatten()
 
-    # TODO: dates without weekends
     today = datetime.datetime.today()
     prediction_dates = pd.date_range(today.strftime('%Y-%m-%d'), periods=N_FORECAST, name='Date', freq='B')
 

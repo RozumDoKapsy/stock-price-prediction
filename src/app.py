@@ -10,6 +10,7 @@ sys.path.append(str(project_path))
 import streamlit as st
 from src.data_preprocessing.data_utils import load_index_data, load_index_list
 from src.predictions import get_predictions, load_predictions
+from src.predictions_evaluation import evaluation
 from src.config import LAG
 
 import datetime
@@ -32,6 +33,20 @@ def create_predictions(index_code):
     return predictions
 
 
+@st.cache_data(show_spinner=False)
+def create_metrics(index_code):
+    metrics_list = []
+    for i in range(10):
+        metrics = evaluation(index_code, i + 1)
+        if metrics:
+            metrics_list.append(metrics)
+
+    df_data = [{'day_order': entry['day_order'], **entry['metrics_df']} for entry in metrics_list]
+
+    df = pd.DataFrame(df_data)
+    return df
+
+
 index_data = load_data()
 indices_dict = load_index_list()
 
@@ -48,7 +63,7 @@ data = data[-LAG:]
 data.index = data['Date']
 
 predictions_df_raw = load_predictions()
-predictions_df = predictions_df_raw[predictions_df_raw['date_of_prediction'] == end_date.strftime('%Y-%m-%d')]
+predictions_df = predictions_df_raw[predictions_df_raw['date_of_prediction'] == predictions_df_raw['date_of_prediction'].max()]
 predictions_df.index = predictions_df['date']
 
 data_plt = pd.concat([data, predictions_df])
@@ -70,5 +85,21 @@ for i, name in enumerate(var_names):
 
 st.plotly_chart(fig)
 
+metrics_df = create_metrics(index)
 
-# # TODO: část, kde bude přesnost modelu - metriky, graf
+selectbox_day_eval = st.sidebar.selectbox('Choose day for performance metrics:', metrics_df['day_order'].unique())
+select_metrics = metrics_df[metrics_df['day_order'] == selectbox_day_eval]
+
+st.subheader(f'Prediction performance metrics for day {selectbox_day_eval}')
+for col, metric in zip(st.columns(3), select_metrics.columns[1:]):
+    col.metric(metric.upper(), select_metrics[metric].values)
+
+st.subheader('Complex View on RMSE and MAE Metrics')
+fig = px.line(metrics_df, x='day_order', y=['rmse', 'mae']
+              , labels={'value': 'Closing Price (USD)'
+                        , 'rmse': 'RMSE'
+                        , 'mae': 'MAE'
+                        , 'day_order': 'Day in Prediction Sequence'})
+st.plotly_chart(fig)
+
+
