@@ -25,7 +25,7 @@ def get_predictions(index_code: str) -> list[dict]:
 
     # TODO: dates without weekends
     today = datetime.datetime.today()
-    prediction_dates = pd.date_range(today.strftime('%Y-%m-%d'), periods=N_FORECAST, name='Date')
+    prediction_dates = pd.date_range(today.strftime('%Y-%m-%d'), periods=N_FORECAST, name='Date', freq='B')
 
     prediction_list = []
 

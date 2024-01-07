@@ -8,7 +8,7 @@ project_path = Path(os.path.dirname(os.path.abspath(__file__))).parent
 sys.path.append(str(project_path))
 
 import streamlit as st
-from src.data_preprocessing.data_utils import download_yahoo_data, load_index_data, load_index_list
+from src.data_preprocessing.data_utils import load_index_data, load_index_list
 from src.predictions import get_predictions, load_predictions
 from src.config import LAG
 
@@ -47,8 +47,8 @@ data = data[data['Index'] == index]
 data = data[-LAG:]
 data.index = data['Date']
 
-predictions_df = load_predictions()
-predictions_df = predictions_df[predictions_df['date_of_prediction'] == end_date.strftime('%Y-%m-%d')]
+predictions_df_raw = load_predictions()
+predictions_df = predictions_df_raw[predictions_df_raw['date_of_prediction'] == end_date.strftime('%Y-%m-%d')]
 predictions_df.index = predictions_df['date']
 
 data_plt = pd.concat([data, predictions_df])
