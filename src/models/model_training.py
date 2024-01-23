@@ -12,8 +12,7 @@ def model_training(n_forecast):
     model_name = 'LSTM_model'
     save_lstm_model(model, model_name)
     print('Model successfully saved.')
-    print(X_train)
-    print(y_train)
+
 
 
 if __name__ == '__main__':
