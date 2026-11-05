@@ -1,35 +1,35 @@
-name: create-predictions
+# name: create-predictions
 
-#on: [push]
-on:
-  schedule:
-    - cron: '0 1 * * 2,3,4,5,6'
+# #on: [push]
+# on:
+#   schedule:
+#     - cron: '0 1 * * 2,3,4,5,6'
 
-jobs:
-  create-predictions:
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout-repository
-      uses: actions/checkout@v4
+# jobs:
+#   create-predictions:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: checkout-repository
+#       uses: actions/checkout@v4
 
-    - name: python-setup
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.10.13
+#     - name: python-setup
+#       uses: actions/setup-python@v4
+#       with:
+#         python-version: 3.10.13
 
-    - name: install-dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools
-        pip install -r requirements.txt
+#     - name: install-dependencies
+#       run: |
+#         python -m pip install --upgrade pip
+#         pip install setuptools
+#         pip install -r requirements.txt
 
-    - name: run-create-predictions
-      run: python src/predictions.py
+#     - name: run-create-predictions
+#       run: python src/predictions.py
 
-    - name: commit-push
-      run: |
-        git config --local user.email "actions@github.com"
-        git config --local user.name "GitHub Actions"
-        git add .
-        git commit -m "chore: auto-update predictions"
-        git push
+#     - name: commit-push
+#       run: |
+#         git config --local user.email "actions@github.com"
+#         git config --local user.name "GitHub Actions"
+#         git add .
+#         git commit -m "chore: auto-update predictions"
+#         git push
